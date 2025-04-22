@@ -1,9 +1,4 @@
 spring:
-  data:
-    redis:
-      host: redis_1
-      password: "${custom.prod.redis.password}"
-      port: 6379
 
   datasource:
     url: jdbc:mysql://mysql_1:3306/glog_prod
@@ -15,12 +10,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+    # 배포 환경에서는 sql이 나오지 않도록
     properties:
       hibernate:
         format_sql: false
         highlight_sql: false
         use_sql_comments: false
 
+# 배포 환경에서는 로그가 info 정도만 나오도록
 logging:
   level:
     com.example: INFO
@@ -34,3 +32,5 @@ custom:
     domain: "${custom.prod.domain}"
     backUrl: "${custom.prod.backUrl}"
     frontUrl: "${custom.prod.frontUrl}"
+  genFile:
+    dirPath: /gen
