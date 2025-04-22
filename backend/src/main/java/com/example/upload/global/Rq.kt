@@ -57,20 +57,10 @@ class Rq(
         return request.cookies?.firstOrNull { it.name == name }?.value
     }
 
-    private fun cookieDomain(): String {
-        val domain = AppConfig.getDomain()
-
-        if(domain == "localhost") {
-            return "localhost"
-        }
-
-        return ".$domain"
-    }
-
     fun addCookie(name: String?, value: String?) {
         Cookie(name, value)
             .apply {
-                domain = cookieDomain()
+                domain = AppConfig.getDomain()
                 path = "/"
                 isHttpOnly = true
                 secure = true
@@ -89,7 +79,7 @@ class Rq(
 
         Cookie(name, null)
             .apply {
-                domain = cookieDomain()
+                domain = AppConfig.getDomain()
                 path = "/"
                 isHttpOnly = true
                 secure = true
